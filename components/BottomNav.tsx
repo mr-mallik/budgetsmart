@@ -1,27 +1,27 @@
 "use client";
 
-import { LayoutGrid, ChartPie, SlidersHorizontal } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { APP_MAX_WIDTH } from "@/lib/constants";
-import type { TabId } from "@/lib/types";
 
-const TABS: { id: TabId; label: string; icon: LucideIcon }[] = [
-  { id: "setup", label: "Setup", icon: SlidersHorizontal },
-  { id: "categories", label: "Categories", icon: LayoutGrid },
-  { id: "results", label: "Results", icon: ChartPie },
-];
+export interface NavTab<T extends string> {
+  id: T;
+  label: string;
+  icon: LucideIcon;
+}
 
-export function BottomNav({
+export function BottomNav<T extends string>({
+  tabs,
   active,
   onChange,
 }: {
-  active: TabId;
-  onChange: (tab: TabId) => void;
+  tabs: NavTab<T>[];
+  active: T;
+  onChange: (tab: T) => void;
 }) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur">
       <div className={`mx-auto flex w-full ${APP_MAX_WIDTH} items-stretch justify-around px-[env(safe-area-inset-left)]`}>
-        {TABS.map(({ id, label, icon: Icon }) => {
+        {tabs.map(({ id, label, icon: Icon }) => {
           const isActive = active === id;
           return (
             <button

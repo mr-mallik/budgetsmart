@@ -1,10 +1,14 @@
 import { emptyCategoryItems } from "./categories";
+import type { ModuleId } from "./constants";
 import { guessCurrencyFromLocale } from "./currencies";
+import type { LoanTabId } from "./loan/types";
 import { DEFAULT_SUB_SPLIT, RULE_PRESETS } from "./rules";
 import type { BudgetState, TabId } from "./types";
 
 const BUDGET_KEY = "budgetsmart:budget:v1";
 const TAB_KEY = "budgetsmart:tab";
+const LOAN_TAB_KEY = "budgetsmart:loan-tab";
+const MODULE_KEY = "budgetsmart:module";
 const THEME_COOKIE = "budgetsmart-theme";
 const INSTALL_DISMISSED_KEY = "budgetsmart:install-dismissed";
 
@@ -90,6 +94,46 @@ export function saveActiveTab(tab: TabId): void {
   if (typeof window === "undefined") return;
   try {
     window.sessionStorage.setItem(TAB_KEY, tab);
+  } catch {
+    // ignore
+  }
+}
+
+export function loadLoanTab(): LoanTabId {
+  if (typeof window === "undefined") return "setup";
+  try {
+    const tab = window.sessionStorage.getItem(LOAN_TAB_KEY);
+    if (tab === "setup" || tab === "results") return tab;
+  } catch {
+    // ignore
+  }
+  return "setup";
+}
+
+export function saveLoanTab(tab: LoanTabId): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(LOAN_TAB_KEY, tab);
+  } catch {
+    // ignore
+  }
+}
+
+export function loadActiveModule(): ModuleId {
+  if (typeof window === "undefined") return "budget";
+  try {
+    const activeModule = window.sessionStorage.getItem(MODULE_KEY);
+    if (activeModule === "budget" || activeModule === "loan") return activeModule;
+  } catch {
+    // ignore
+  }
+  return "budget";
+}
+
+export function saveActiveModule(activeModule: ModuleId): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(MODULE_KEY, activeModule);
   } catch {
     // ignore
   }

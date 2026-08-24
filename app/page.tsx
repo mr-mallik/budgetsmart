@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Wallet } from "lucide-react";
 
-const BudgetApp = dynamic(() => import("@/components/BudgetApp"), {
+const AppShell = dynamic(() => import("@/components/AppShell"), {
   ssr: false,
   loading: () => (
     <div className="flex min-h-dvh items-center justify-center bg-background">
@@ -15,5 +15,5 @@ const BudgetApp = dynamic(() => import("@/components/BudgetApp"), {
 });
 
 export default function Home() {
-  return <BudgetApp />;
+  return <AppShell />;
 }
