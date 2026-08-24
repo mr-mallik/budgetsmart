@@ -25,7 +25,7 @@ export function ItemRow({
 }: ItemRowProps) {
   return (
     <div
-      className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 transition-colors ${
+      className={`animate-in fade-in-0 slide-in-from-left-1 flex items-center gap-2 rounded-xl border px-3 py-2.5 duration-200 ease-out transition-colors ${
         resultInfo?.cut ? "border-destructive/40 bg-destructive/5" : "border-border bg-card"
       }`}
     >

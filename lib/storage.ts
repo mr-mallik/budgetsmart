@@ -6,6 +6,7 @@ import type { BudgetState, TabId } from "./types";
 const BUDGET_KEY = "budgetsmart:budget:v1";
 const TAB_KEY = "budgetsmart:tab";
 const THEME_COOKIE = "budgetsmart-theme";
+const INSTALL_DISMISSED_KEY = "budgetsmart:install-dismissed";
 
 export function defaultBudgetState(): BudgetState {
   const preset = RULE_PRESETS[0];
@@ -121,3 +122,21 @@ export function saveTheme(theme: Theme): void {
 }
 
 export const THEME_COOKIE_NAME = THEME_COOKIE;
+
+export function loadInstallDismissed(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(INSTALL_DISMISSED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function saveInstallDismissed(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(INSTALL_DISMISSED_KEY, "1");
+  } catch {
+    // ignore
+  }
+}

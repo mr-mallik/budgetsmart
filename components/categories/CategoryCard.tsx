@@ -45,7 +45,7 @@ export function CategoryCard({ categoryId }: { categoryId: CategoryId }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-3 px-4 py-3.5 text-left"
+        className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors active:bg-muted/60"
       >
         <span
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
@@ -76,7 +76,7 @@ export function CategoryCard({ categoryId }: { categoryId: CategoryId }) {
       </button>
 
       {open && (
-        <div className="border-t border-border px-4 py-3.5">
+        <div className="animate-in fade-in-0 slide-in-from-top-1 duration-200 ease-out border-t border-border px-4 py-3.5">
           {items.length === 0 && (
             <p className="mb-3 text-xs text-muted-foreground">
               No items yet. This category will show as spending power in your results.

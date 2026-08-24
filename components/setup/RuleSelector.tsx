@@ -33,7 +33,7 @@ export function RuleSelector() {
               key={preset.id}
               type="button"
               onClick={() => setRule(preset.id)}
-              className={`relative rounded-2xl border px-3.5 py-3 text-left transition-all ${
+              className={`relative rounded-2xl border px-3.5 py-3 text-left transition-all active:scale-[0.98] ${
                 active
                   ? "border-primary bg-primary/10 shadow-sm"
                   : "border-border bg-card hover:border-primary/40"
@@ -42,7 +42,7 @@ export function RuleSelector() {
               {active && (
                 <CircleCheck
                   size={16}
-                  className="absolute right-2.5 top-2.5 text-primary"
+                  className="animate-in zoom-in-50 duration-200 absolute right-2.5 top-2.5 text-primary"
                   strokeWidth={2.3}
                   fill="currentColor"
                   fillOpacity={0.15}
@@ -56,7 +56,7 @@ export function RuleSelector() {
         <button
           type="button"
           onClick={() => setRule(CUSTOM_RULE_ID)}
-          className={`relative col-span-2 flex items-start gap-2.5 rounded-2xl border px-3.5 py-3 text-left transition-all sm:col-span-1 ${
+          className={`relative col-span-2 flex items-start gap-2.5 rounded-2xl border px-3.5 py-3 text-left transition-all active:scale-[0.98] sm:col-span-1 ${
             isCustom ? "border-primary bg-primary/10 shadow-sm" : "border-border bg-card hover:border-primary/40"
           }`}
         >

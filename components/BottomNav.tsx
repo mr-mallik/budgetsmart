@@ -19,8 +19,8 @@ export function BottomNav({
   onChange: (tab: TabId) => void;
 }) {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
-      <div className={`mx-auto flex w-full ${APP_MAX_WIDTH} items-stretch justify-around`}>
+    <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur">
+      <div className={`mx-auto flex w-full ${APP_MAX_WIDTH} items-stretch justify-around px-[env(safe-area-inset-left)]`}>
         {TABS.map(({ id, label, icon: Icon }) => {
           const isActive = active === id;
           return (
@@ -28,16 +28,18 @@ export function BottomNav({
               key={id}
               type="button"
               onClick={() => onChange(id)}
-              className="flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium text-muted-foreground transition-colors"
+              className="flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium text-muted-foreground transition-transform active:scale-95"
             >
               <span
-                className={`flex h-7 w-11 items-center justify-center rounded-full transition-colors ${
-                  isActive ? "bg-primary/15 text-primary" : "text-muted-foreground"
+                className={`flex h-7 w-11 items-center justify-center rounded-full transition-all duration-200 ${
+                  isActive ? "scale-105 bg-primary/15 text-primary" : "text-muted-foreground"
                 }`}
               >
                 <Icon size={18} strokeWidth={isActive ? 2.3 : 1.8} />
               </span>
-              <span className={isActive ? "text-primary" : "text-muted-foreground"}>{label}</span>
+              <span className={`transition-colors duration-200 ${isActive ? "text-primary" : "text-muted-foreground"}`}>
+                {label}
+              </span>
             </button>
           );
         })}

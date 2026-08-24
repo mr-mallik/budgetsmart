@@ -20,6 +20,8 @@ import { APP_MAX_WIDTH } from "@/lib/constants";
 import { loadActiveTab, saveActiveTab } from "@/lib/storage";
 import type { TabId } from "@/lib/types";
 import { BottomNav } from "./BottomNav";
+import { InstallPrompt } from "./InstallPrompt";
+import { OnlineStatusBanner } from "./OnlineStatusBanner";
 import { ThemeToggle } from "./ThemeToggle";
 import { CategoriesPanel } from "./categories/CategoriesPanel";
 import { ResultsPanel } from "./results/ResultsPanel";
@@ -47,7 +49,9 @@ function AppShell() {
 
   return (
     <div className={`mx-auto flex min-h-dvh w-full ${APP_MAX_WIDTH} flex-col bg-background`}>
-      <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-border bg-background/95 px-4 py-3 backdrop-blur">
+      <OnlineStatusBanner />
+
+      <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-border bg-background/95 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 backdrop-blur">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Wallet size={17} strokeWidth={2.2} />
@@ -67,9 +71,9 @@ function AppShell() {
                 variant="outline"
                 size="icon"
                 aria-label="Reset budget"
-                className="h-9 w-9 rounded-full"
+                className="h-10 w-10 rounded-full"
               >
-                <RotateCcw size={15} />
+                <RotateCcw size={16} />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
@@ -92,9 +96,12 @@ function AppShell() {
       </header>
 
       <main className="flex-1 px-4 pt-4 pb-24">
-        {activeTab === "setup" && <SetupPanel />}
-        {activeTab === "categories" && <CategoriesPanel />}
-        {activeTab === "results" && <ResultsPanel />}
+        <InstallPrompt />
+        <div key={activeTab} className="animate-in fade-in-0 slide-in-from-bottom-1 duration-200 ease-out">
+          {activeTab === "setup" && <SetupPanel />}
+          {activeTab === "categories" && <CategoriesPanel />}
+          {activeTab === "results" && <ResultsPanel />}
+        </div>
       </main>
 
       <BottomNav active={activeTab} onChange={setActiveTab} />
